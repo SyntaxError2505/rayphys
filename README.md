@@ -17,7 +17,7 @@ cmake --build .
 # Roadmap
 ```
 Window
-Circle Rendering (planned)
+Circle Rendering
 Gravity (planned)
 Circle Collision (planned)
 Cube Rendering (planned)
