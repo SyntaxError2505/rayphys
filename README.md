@@ -1,4 +1,4 @@
-# rayphys 0.2.0
+# rayphys 0.3.0
 A physics engine using raylib in C designed purely to ragebait my Zig-friend
 
 # Requirements
@@ -18,8 +18,8 @@ cmake --build .
 ```
 Window
 Circle Rendering
-Gravity (planned)
-Circle Collision (planned)
+Gravity
+Circle Collision
 Cube Rendering (planned)
 Cube Collision (planned)
 Image Rendering (planned)

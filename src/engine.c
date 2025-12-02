@@ -59,6 +59,11 @@ void update_ball_system(ball_system* sys){
 
     //check and resolve collision
     for (int i = 0; i < sys->count; i++) {
+        if(sys->y[i] > GetScreenHeight() - CIRCLE_RADIUS){
+            sys->y[i] = GetScreenHeight() - CIRCLE_RADIUS;
+            sys->vy[i] = (sys->vy[i] * - 1) * ELASTICITY;
+        }
+
         for (int j = i + 1; j < sys->count; j++) {
             if(!(i == j)){
                 float dx = sys->x[i] - sys->x[j];
@@ -126,8 +131,8 @@ void init(void){
 void run(void){
     ball_system* balls = create_ball_system(MAX_INIT_CIRCLES);
 
-    add_ball(balls, 0, 0, 0, 0);
-    add_ball(balls, 100, 100, 0, 0);
+    add_ball(balls, 100, 0, 0, 0);
+    add_ball(balls, 150, 100, 0, 0);
 
     while(!WindowShouldClose()){
         BeginDrawing();
