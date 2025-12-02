@@ -4,7 +4,7 @@
 // #define WINDOW_HEIGTH 500
 
 #define CIRCLE_RADIUS 50
-#define GRAVITY -9.810
+#define GRAVITY -981.0
 #define MAX_INIT_CIRCLES 100
 #define MAX_CIRCLES 10000
 #define ELASTICITY 1
@@ -14,17 +14,19 @@ ball_system* create_ball_system(int capacity){
     ball_system* sys = malloc(sizeof(ball_system));
     sys->capacity = capacity;
     sys->count = 0;
-    sys->x = malloc(sys->capacity*sizeof(int));
-    sys->y = malloc(sys->capacity*sizeof(int));
+    sys->x = malloc(sys->capacity*sizeof(float));
+    sys->y = malloc(sys->capacity*sizeof(float));
     sys->vx = malloc(sys->capacity*sizeof(float));
     sys->vy = malloc(sys->capacity*sizeof(float));
+
+    return sys;
 }
 
 void add_ball(ball_system* sys, int x, int y, float vx, float vy){
     if(sys->count >= sys->capacity){
         sys->capacity *= 2;
-        sys->x = realloc(sys->x, sys->capacity * sizeof(int));
-        sys->y = realloc(sys->y, sys->capacity * sizeof(int));
+        sys->x = realloc(sys->x, sys->capacity * sizeof(float));
+        sys->y = realloc(sys->y, sys->capacity * sizeof(float));
         sys->vx = realloc(sys->vx, sys->capacity * sizeof(float));
         sys->vy = realloc(sys->vy, sys->capacity * sizeof(float));
     }
@@ -48,7 +50,7 @@ void render_ball_system(ball_system* sys){
 
 void update_ball_system(ball_system* sys){
     for(int i = 0; i < sys->count; i++){
-        sys->vy[i] -= GRAVITY;
+        sys->vy[i] -= GRAVITY * GetFrameTime();
     }
 
     //move according to speeds

@@ -7,8 +7,8 @@
 #include "math.h"
 
 typedef struct{
-    int* x;
-    int* y;
+    float* x;
+    float* y;
     float* vx;
     float* vy;
     size_t count;
