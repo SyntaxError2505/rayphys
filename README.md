@@ -9,11 +9,11 @@ CMake 3.14+
 a C compiler (gcc recomended)
 
 # Building
-'
+```
 mkdir build && cd build
 cmake .. # Make sure to pick the right generator using the -G flag like -G"generator"
 cmake --build .
-'
+```
 
 # Roadmap
 Window (planned)
