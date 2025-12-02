@@ -14,17 +14,17 @@ ball_system* create_ball_system(int capacity){
     ball_system* sys = malloc(sizeof(ball_system));
     sys->capacity = capacity;
     sys->count = 0;
-    sys->x = malloc(sys->count*sizeof(int));
-    sys->y = malloc(sys->count*sizeof(int));
-    sys->vx = malloc(sys->count*sizeof(float));
-    sys->vy = malloc(sys->count*sizeof(float));
+    sys->x = malloc(sys->capacity*sizeof(int));
+    sys->y = malloc(sys->capacity*sizeof(int));
+    sys->vx = malloc(sys->capacity*sizeof(float));
+    sys->vy = malloc(sys->capacity*sizeof(float));
 }
 
 void add_ball(ball_system* sys, int x, int y, float vx, float vy){
     if(sys->count >= sys->capacity){
         sys->capacity *= 2;
-        sys->x = realloc(sys->x, sys->capacity * sizeof(float));
-        sys->y = realloc(sys->y, sys->capacity * sizeof(float));
+        sys->x = realloc(sys->x, sys->capacity * sizeof(int));
+        sys->y = realloc(sys->y, sys->capacity * sizeof(int));
         sys->vx = realloc(sys->vx, sys->capacity * sizeof(float));
         sys->vy = realloc(sys->vy, sys->capacity * sizeof(float));
     }
@@ -140,6 +140,10 @@ void run(void){
             render_ball_system(balls);
             update_ball_system(balls);
         EndDrawing();
+
+        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+            add_ball(balls, GetMousePosition().x, GetMousePosition().y, 0, 0);
+        }
     }
 
     destroy_ball_system(balls);
