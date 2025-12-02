@@ -16,6 +16,7 @@ cmake --build .
 ```
 
 # Roadmap
+```
 Window (planned)
 Circle Rendering (planned)
 Gravity (planned)
@@ -25,3 +26,4 @@ Cube Collision (planned)
 Image Rendering (planned)
 Sounds (planned)
 ---------Release 1.0----------
+```
