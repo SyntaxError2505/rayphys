@@ -1,18 +1,16 @@
 #include "raylib.h"
+#include "engine/engine.h"
 
 int main(void)
 {
-    InitWindow(800, 450, "raylib [core] example - basic window");
+    //quick initializations
+    init();
 
-    while (!WindowShouldClose())
-    {
-        BeginDrawing();
-            ClearBackground(RAYWHITE);
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-        EndDrawing();
-    }
+    //game loop inside run
+    run();
 
-    CloseWindow();
+    //delete the window and let raylib do some work
+    quit();
 
     return 0;
 }
