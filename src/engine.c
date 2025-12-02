@@ -34,6 +34,19 @@ void add_ball(ball_system* sys, int x, int y, float vx, float vy){
     sys->y[i] = y;
     sys->vx[i] = vx;
     sys->vy[i] = vy;
+    sys->count++;
+}
+
+void render_ball_system(ball_system* sys){
+    for(int i = 0; i < sys->count; i++){
+        int current = i;
+        
+        DrawCircle(sys->x[current], sys->y[current], CIRCLE_RADIUS, RED);
+    }
+}
+
+void update_ball_system(ball_system* sys){
+    
 }
 
 void destroy_ball_system(ball_system* sys){
@@ -53,10 +66,13 @@ void init(void){
 void run(void){
     ball_system* balls = create_ball_system(MAX_INIT_CIRCLES);
 
+    add_ball(balls, 0, 0, 0, 0);
+    add_ball(balls, 100, 100, 0, 0);
+
     while(!WindowShouldClose()){
         BeginDrawing();
             ClearBackground(RAYWHITE);
-            DrawCircle(200, 200, 50.0, RED);
+            render_ball_system(balls);
         EndDrawing();
     }
 
