@@ -4,9 +4,10 @@
 // #define WINDOW_HEIGTH 500
 
 #define CIRCLE_RADIUS 50
-#define GRAVITY 981f
+#define GRAVITY -9.810
 #define MAX_INIT_CIRCLES 100
 #define MAX_CIRCLES 10000
+#define ELASTICITY 1
 
 // Ball System
 ball_system* create_ball_system(int capacity){
@@ -46,7 +47,65 @@ void render_ball_system(ball_system* sys){
 }
 
 void update_ball_system(ball_system* sys){
-    
+    for(int i = 0; i < sys->count; i++){
+        sys->vy[i] -= GRAVITY;
+    }
+
+    //move according to speeds
+    for(int i = 0; i < sys->count; i++){
+        sys->x[i] += sys->vx[i] * GetFrameTime();
+        sys->y[i] += sys->vy[i] * GetFrameTime();
+    }
+
+    //check and resolve collision
+    for (int i = 0; i < sys->count; i++) {
+        for (int j = i + 1; j < sys->count; j++) {
+            if(!(i == j)){
+                float dx = sys->x[i] - sys->x[j];
+                float dy = sys->y[i] - sys->y[j];
+                float dist = sqrtf(dx*dx + dy*dy);
+
+                if(dist < CIRCLE_RADIUS*2){
+
+                    if(dist == 0.0f){dist = 0.001f;}
+
+                    float nx = dx / dist;
+                    float ny = dy / dist;
+
+                    // --- 2. Push circles apart ---
+                    float overlap = (CIRCLE_RADIUS * 2.0f) - dist;
+                    float push = overlap * 0.5f;
+
+                    sys->x[i] += nx * push;
+                    sys->y[i] += ny * push;
+
+                    sys->x[j] -= nx * push;
+                    sys->y[j] -= ny * push;
+
+                    // --- 3. Velocity response using ELASTICITY ---
+
+                    // Project velocities onto collision normal
+                    float vi = sys->vx[i] * nx + sys->vy[i] * ny;
+                    float vj = sys->vx[j] * nx + sys->vy[j] * ny;
+
+                    // Compute new normal components after collision
+                    float vi_after = vj * ELASTICITY;   // swap, scaled by elasticity
+                    float vj_after = vi * ELASTICITY;
+
+                    // Change in normal velocity
+                    float dvi = vi_after - vi;
+                    float dvj = vj_after - vj;
+
+                    // Apply to full velocity vectors
+                    sys->vx[i] += dvi * nx;
+                    sys->vy[i] += dvi * ny;
+
+                    sys->vx[j] += dvj * nx;
+                    sys->vy[j] += dvj * ny;
+                }
+            }
+        }
+    }
 }
 
 void destroy_ball_system(ball_system* sys){
@@ -61,6 +120,7 @@ void destroy_ball_system(ball_system* sys){
 void init(void){
     SetConfigFlags(FLAG_FULLSCREEN_MODE);
     InitWindow(GetScreenWidth(), GetScreenHeight(), "Rayphys");
+    SetTargetFPS(60);
 }
 
 void run(void){
@@ -73,6 +133,7 @@ void run(void){
         BeginDrawing();
             ClearBackground(RAYWHITE);
             render_ball_system(balls);
+            update_ball_system(balls);
         EndDrawing();
     }
 
