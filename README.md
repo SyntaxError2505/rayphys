@@ -1,6 +1,5 @@
-# rayphys
+# rayphys 0.2.0
 A physics engine using raylib in C designed purely to ragebait my Zig-friend
-Version 0.0.1
 
 # Requirements
 An instalation of [raylib](https://github.com/raysan5/raylib)
@@ -17,7 +16,7 @@ cmake --build .
 
 # Roadmap
 ```
-Window (planned)
+Window
 Circle Rendering (planned)
 Gravity (planned)
 Circle Collision (planned)
