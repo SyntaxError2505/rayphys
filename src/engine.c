@@ -157,6 +157,9 @@ void run(void){
             ClearBackground(RAYWHITE);
             render_ball_system(balls);
             update_ball_system(balls);
+
+            DrawText(TextFormat("FPS: %i", GetFPS()), 40, 40, 40, GRAY);
+            DrawText(TextFormat("Ballcount: %i", (int)balls->count), 40, 80, 40, GRAY);
         EndDrawing();
 
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
