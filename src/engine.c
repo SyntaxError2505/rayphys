@@ -61,11 +61,25 @@ void update_ball_system(ball_system* sys){
 
     //check and resolve collision
     for (int i = 0; i < sys->count; i++) {
+        //check floor collision
         if(sys->y[i] > GetScreenHeight() - CIRCLE_RADIUS){
             sys->y[i] = GetScreenHeight() - CIRCLE_RADIUS;
             sys->vy[i] = (sys->vy[i] * - 1) * ELASTICITY;
         }
 
+        //check left collision
+        if(sys->x[i] < CIRCLE_RADIUS){
+            sys->x[i] = CIRCLE_RADIUS;
+            sys->vx[i] = (sys->vx[i] * - 1) * ELASTICITY;
+        }
+
+        //check right collision
+        if(sys->x[i] > GetScreenWidth() - CIRCLE_RADIUS){
+            sys->x[i] = GetScreenWidth() - CIRCLE_RADIUS;
+            sys->vx[i] = (sys->vx[i] * - 1) * ELASTICITY;
+        }
+
+        //check circle to circle collision
         for (int j = i + 1; j < sys->count; j++) {
             if(!(i == j)){
                 float dx = sys->x[i] - sys->x[j];
