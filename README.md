@@ -3,7 +3,7 @@ A physics engine using raylib in C designed purely to ragebait my Zig-friend
 
 # Requirements
 ```
-An instalation of [raylib](https://github.com/raysan5/raylib)
+An instalation of raylib
 An OS/WM that raylib supports (make sure to read their documentation)
 CMake 3.14+
 a C compiler (gcc recomended)
