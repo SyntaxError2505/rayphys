@@ -7,7 +7,8 @@
 #define GRAVITY -981.0
 #define MAX_INIT_CIRCLES 100
 #define MAX_CIRCLES 10000
-#define ELASTICITY 1
+#define ELASTICITY 0.9
+#define FLOOR_FRICTION 0.9
 
 // Ball System
 ball_system* create_ball_system(int capacity){
@@ -65,6 +66,7 @@ void update_ball_system(ball_system* sys){
         if(sys->y[i] > GetScreenHeight() - CIRCLE_RADIUS){
             sys->y[i] = GetScreenHeight() - CIRCLE_RADIUS;
             sys->vy[i] = (sys->vy[i] * - 1) * ELASTICITY;
+            sys->vx[i] *= FLOOR_FRICTION;
         }
 
         //check left collision
