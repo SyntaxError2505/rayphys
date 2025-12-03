@@ -6,7 +6,7 @@
 #define CIRCLE_RADIUS 50
 #define GRAVITY -981.0
 #define MAX_INIT_CIRCLES 100
-#define MAX_CIRCLES 10000
+//#define MAX_CIRCLES 10000 NOT IMPLEMENTED
 #define ELASTICITY 0.9
 #define FLOOR_FRICTION 0.9
 
@@ -164,6 +164,13 @@ void run(void){
 
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
             add_ball(balls, GetMousePosition().x, GetMousePosition().y, 0, 0);
+        }
+        if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT)){
+            add_ball(balls, GetMousePosition().x, GetMousePosition().y, 0, 0);
+        }
+        if(IsKeyPressed(KEY_R)){
+            balls->count = 0;
+            balls->capacity = MAX_INIT_CIRCLES;
         }
     }
 

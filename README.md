@@ -16,6 +16,9 @@ cmake .. # Make sure to pick the right generator using the -G flag like -G"gener
 cmake --build .
 ```
 
+# How to use
+start up the generated executable. You will see a white screen (with some circles). Press M1 to spawn one and press M2 to spawn one per Frame. Reset with R
+
 # Roadmap
 ```
 Window
